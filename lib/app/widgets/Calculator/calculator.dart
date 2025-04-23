@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app/widgets/Calculator/calculatorButton.dart';
-import 'package:flutter_application_1/app/widgets/Calculator/calculatorInput.dart';
+import 'package:flutter_application_1/app/widgets/Calculator/customInput.dart';
 
 class Calculator extends StatefulWidget {
   const Calculator({super.key});
@@ -82,12 +82,12 @@ class _MyCalculatorState extends State<Calculator> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          CalculatorInput(
+          Input(
             controller: controller1,
             hint: 'Enter First Number',
           ),
           const SizedBox(height: 16.0),
-          CalculatorInput(
+          Input(
             controller: controller2,
             hint: 'Enter Second Number',
           ),
@@ -95,24 +95,24 @@ class _MyCalculatorState extends State<Calculator> {
           Text(z.toString(), style: const TextStyle(fontSize: 44.0)),
           const Spacer(),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            CalculatorButton(
+            Button(
                 action: () {
                   action('add');
                 },
                 icon: '+'),
-            CalculatorButton(
+            Button(
               action: () {
                 action('subtract');
               },
               icon: '-',
             ),
-            CalculatorButton(
+            Button(
               action: () {
                 action('multiply');
               },
               icon: 'x',
             ),
-            CalculatorButton(
+            Button(
               action: () {
                 action('divide');
               },
@@ -120,7 +120,7 @@ class _MyCalculatorState extends State<Calculator> {
             )
           ]),
           const SizedBox(height: 15.0),
-          CalculatorButton(
+          Button(
               action: () {
                 clear();
               },
