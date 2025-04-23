@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_application_1/app/routes/app_stack.dart';
@@ -87,13 +88,30 @@ class _AddProductState extends ConsumerState<AddProduct> {
 
   void addProduct() {
     // TODO: Implement addProduct function
-    print(titleController.text);
-    print(priceController.text);
-    print(quantityController.text);
-    print(locationController.text);
-    print(categoryController.text);
-    print(_mediaFileList?.path);
     try {
+      if (titleController.text == '' ||
+          priceController.text == '' ||
+          quantityController.text == '' ||
+          locationController.text == '' ||
+          categoryController.text == '') {
+        showCupertinoModalPopup(
+            context: context,
+            builder: (context) {
+              return CupertinoAlertDialog(
+                title: const Text('Error'),
+                content: const Text('Please fill all the fields'),
+                actions: [
+                  CupertinoDialogAction(
+                    child: const Text('OK'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            });
+        return;
+      }
       ref.read(productListProvider.notifier).add(
             titleController.text,
             priceController.text,
@@ -131,7 +149,6 @@ class _AddProductState extends ConsumerState<AddProduct> {
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           extendBody: true,
-          backgroundColor: Colors.white,
           body: SafeArea(
               child: Padding(
             padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
@@ -170,6 +187,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                           child: const Icon(
                             Icons.add_a_photo_outlined,
                             size: 30.0,
+                            color: Colors.black,
                           ),
                         ),
                         _mediaFileList != null
@@ -206,6 +224,7 @@ class _AddProductState extends ConsumerState<AddProduct> {
                                 icon: const Icon(
                                   Icons.edit,
                                   size: 17.0,
+                                  color: Colors.black,
                                 )),
                           ),
                         ),

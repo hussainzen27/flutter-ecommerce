@@ -54,8 +54,7 @@ class Input extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: const BorderSide(
-                  color:
-                      Color.fromRGBO(232, 143, 185, 1), // border when focused
+                  color: Color.fromRGBO(0, 128, 128, 1), // border when focused
                   width: 2.0,
                 ),
               ),

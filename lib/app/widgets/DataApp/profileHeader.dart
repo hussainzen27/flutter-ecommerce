@@ -8,7 +8,7 @@ class ProfileHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 60.0, left: 20.0, right: 20.0),
       decoration: const BoxDecoration(
-          color: Color.fromRGBO(232, 143, 185, 1),
+          color: Color.fromRGBO(0, 128, 128, 1),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(20.0),
             bottomRight: Radius.circular(20.0),

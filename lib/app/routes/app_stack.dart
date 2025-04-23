@@ -33,6 +33,7 @@ class _AppStackState extends State<AppStack> {
                 height: 70.0,
                 width: 70.0,
                 child: FloatingActionButton(
+                  backgroundColor: const Color.fromARGB(255, 60, 192, 192),
                   onPressed: () {
                     setState(() {
                       currentPageIndex = 1;

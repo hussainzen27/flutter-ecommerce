@@ -34,7 +34,7 @@ class ProfileCircularImage extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(100.0),
                     child: Container(
-                      color: const Color.fromRGBO(232, 143, 185, 1),
+                      color: const Color.fromRGBO(0, 128, 128, 1),
                       padding: const EdgeInsets.all(10.0),
                       child: const Icon(
                         Icons.edit,

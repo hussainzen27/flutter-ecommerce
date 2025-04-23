@@ -53,107 +53,82 @@ class _HomeState extends ConsumerState<Home> {
     final products = ref.watch(productListProvider);
 
     return (Scaffold(
-        backgroundColor: Colors.white,
         body: SafeArea(
-          bottom: false,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0),
-            child: Column(
+      bottom: false,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0),
+        child: Column(
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Jobs',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 22.0),
-                    ),
-                    Row(
-                      spacing: 4.0,
-                      children: [
-                        const Icon(
-                          Icons.content_copy,
-                          color: Color.fromRGBO(0, 128, 128, 1),
-                          size: 18.0,
-                        ),
-                        InkWell(
-                          onTap: () => FirebaseAuth.instance.signOut(),
-                          child: const Text(
-                            'Logout',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.0,
-                                color: Color.fromRGBO(0, 128, 128, 1)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                  child: const Divider(color: Color.fromRGBO(233, 237, 238, 1)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Filters',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18.0),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet<void>(
-                              backgroundColor: Colors.white,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return StatefulBuilder(builder:
-                                    (BuildContext context,
-                                        StateSetter setState) {
-                                  return CustomBottomSheet(
-                                    currentSliderValue: _currentSliderValue,
-                                    seekbarHandler: (value) {
-                                      setState(() {
-                                        _currentSliderValue = value;
-                                      });
-                                    },
-                                    filters: filters,
-                                  );
-                                });
-                              });
-                        },
-                        child: const Icon(
-                          Icons.tune,
-                          color: Color.fromRGBO(0, 128, 128, 1),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: GridView.builder(
-                    itemCount: products.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // like numColumns = 2
-                    ),
-                    itemBuilder: (context, index) {
-                      return AdCard(
-                        index: index,
-                        title: products[index].title,
-                        description: products[index].location,
-                        image: products[index].image,
-                        placeHolderImage: images[index]['image'],
-                      );
-                    },
-                  ),
+                Text(
+                  'Jobs',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
                 ),
               ],
             ),
-          ),
-        )));
+            Container(
+              margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              child: const Divider(color: Color.fromRGBO(233, 237, 238, 1)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Filters',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return StatefulBuilder(builder:
+                                (BuildContext context, StateSetter setState) {
+                              return CustomBottomSheet(
+                                currentSliderValue: _currentSliderValue,
+                                seekbarHandler: (value) {
+                                  setState(() {
+                                    _currentSliderValue = value;
+                                  });
+                                },
+                                filters: filters,
+                              );
+                            });
+                          });
+                    },
+                    child: const Icon(
+                      Icons.tune,
+                      color: Color.fromRGBO(0, 128, 128, 1),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: GridView.builder(
+                itemCount: products.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // like numColumns = 2
+                ),
+                itemBuilder: (context, index) {
+                  return AdCard(
+                    index: index,
+                    title: products[index].title,
+                    description: products[index].location,
+                    image: products[index].image,
+                    placeHolderImage: images[index]['image'],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    )));
   }
 }

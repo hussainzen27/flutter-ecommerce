@@ -56,7 +56,6 @@ class _CustomBottomSheetState extends ConsumerState<CustomBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       margin: const EdgeInsets.all(20.0),
       child: Column(
         children: [

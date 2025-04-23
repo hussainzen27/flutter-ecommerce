@@ -24,7 +24,6 @@ class _ProfileState extends ConsumerState<Profile> {
   Widget build(BuildContext context) {
     final theme = ref.watch(settingStateProvider);
     return (Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
           top: false,
           child: Stack(
@@ -47,9 +46,9 @@ class _ProfileState extends ConsumerState<Profile> {
                     child: Text(
                       'alexa@example.com',
                       style: TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black),
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                   Padding(
@@ -93,7 +92,6 @@ class _ProfileState extends ConsumerState<Profile> {
                             },
                             icon: const Icon(
                               Icons.logout,
-                              color: Colors.black,
                             ))
                       ],
                     ),
