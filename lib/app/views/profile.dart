@@ -64,6 +64,8 @@ class _ProfileState extends ConsumerState<Profile> {
                         ),
                         Switch(
                           value: theme,
+                          activeTrackColor:
+                              const Color.fromRGBO(0, 128, 128, 1),
                           onChanged: (bool value) {
                             ref
                                 .read(settingServiceProvider)

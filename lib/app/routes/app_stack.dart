@@ -50,6 +50,7 @@ class _AppStackState extends State<AppStack> {
                   ),
                 ),
               ),
+              resizeToAvoidBottomInset: false,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
               bottomNavigationBar: NavigationBar(
@@ -72,7 +73,9 @@ class _AppStackState extends State<AppStack> {
                     ),
                   ),
                   const NavigationDestination(
-                      icon: SizedBox.shrink(), label: ''),
+                    icon: SizedBox.shrink(),
+                    label: '',
+                  ),
                   Container(
                     padding: const EdgeInsets.only(top: 20.0, right: 20.0),
                     child: const NavigationDestination(

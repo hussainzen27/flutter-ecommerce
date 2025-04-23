@@ -125,7 +125,7 @@ class _LoginState extends State<Login> {
                     fixedSize: const Size(double.maxFinite, 50.0),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0)),
-                    backgroundColor: const Color.fromRGBO(110, 104, 59, 1)),
+                    backgroundColor: const Color.fromRGBO(0, 128, 128, 1)),
                 child: const Text('LOGIN',
                     style: TextStyle(fontSize: 20.0, color: Colors.white)),
               )

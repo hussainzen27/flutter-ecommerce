@@ -129,7 +129,7 @@ class _SignupState extends State<Signup> {
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(double.maxFinite, 50.0),
-                    backgroundColor: const Color.fromRGBO(110, 104, 59, 1),
+                    backgroundColor: const Color.fromRGBO(0, 128, 128, 1),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0)),
                   ),
