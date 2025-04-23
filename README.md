@@ -1,3 +1,5 @@
+## ADD FIREBASE API_KEY IN GoogleService-Info.plist
+
 # flutter_application_1
 
 A new Flutter project.
