@@ -8,7 +8,6 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_application_1/app/store/models/chat_model.dart';
 import 'package:flutter_application_1/app/store/providers/user_provider.dart';
 import 'package:flutter_application_1/app/store/services/chat_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
