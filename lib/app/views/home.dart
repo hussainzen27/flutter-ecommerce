@@ -1,6 +1,3 @@
-// import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app/data/ads.dart';
 import 'package:flutter_application_1/app/data/filters.dart';
@@ -8,7 +5,6 @@ import 'package:flutter_application_1/app/store/providers/product_provider.dart'
 import 'package:flutter_application_1/app/widgets/DataApp/bottomSheet.dart';
 import 'package:flutter_application_1/app/widgets/DataApp/card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:http/http.dart' as http;
 
 class Home extends ConsumerStatefulWidget {
   const Home({super.key});
@@ -53,82 +49,95 @@ class _HomeState extends ConsumerState<Home> {
     final products = ref.watch(productListProvider);
 
     return (Scaffold(
+        appBar: AppBar(
+          shape: const Border(
+              bottom: BorderSide(color: Color.fromRGBO(233, 237, 238, 1))),
+          title: const Text(
+            'Jobs',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(10.0),
+            child: Container(
+              color: const Color.fromRGBO(233, 237, 238, 1),
+              height: 1.0,
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/chat');
+              },
+              icon: const Icon(Icons.message_sharp),
+            ),
+          ],
+          centerTitle: false,
+        ),
         body: SafeArea(
-      bottom: false,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0),
-        child: Column(
-          children: [
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          bottom: false,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0),
+            child: Column(
               children: [
-                Text(
-                  'Jobs',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Filters',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18.0),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return StatefulBuilder(builder:
+                                    (BuildContext context,
+                                        StateSetter setState) {
+                                  return CustomBottomSheet(
+                                    currentSliderValue: _currentSliderValue,
+                                    seekbarHandler: (value) {
+                                      setState(() {
+                                        _currentSliderValue = value;
+                                      });
+                                    },
+                                    filters: filters,
+                                  );
+                                });
+                              });
+                        },
+                        child: const Icon(
+                          Icons.tune,
+                          color: Color.fromRGBO(0, 128, 128, 1),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: products.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, // like numColumns = 2
+                    ),
+                    itemBuilder: (context, index) {
+                      return AdCard(
+                        index: index,
+                        title: products[index].title,
+                        description: products[index].location,
+                        image: products[index].image,
+                        placeHolderImage: images[index]['image'],
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: const Divider(color: Color.fromRGBO(233, 237, 238, 1)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Filters',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return StatefulBuilder(builder:
-                                (BuildContext context, StateSetter setState) {
-                              return CustomBottomSheet(
-                                currentSliderValue: _currentSliderValue,
-                                seekbarHandler: (value) {
-                                  setState(() {
-                                    _currentSliderValue = value;
-                                  });
-                                },
-                                filters: filters,
-                              );
-                            });
-                          });
-                    },
-                    child: const Icon(
-                      Icons.tune,
-                      color: Color.fromRGBO(0, 128, 128, 1),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: GridView.builder(
-                itemCount: products.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // like numColumns = 2
-                ),
-                itemBuilder: (context, index) {
-                  return AdCard(
-                    index: index,
-                    title: products[index].title,
-                    description: products[index].location,
-                    image: products[index].image,
-                    placeHolderImage: images[index]['image'],
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    )));
+          ),
+        )));
   }
 }

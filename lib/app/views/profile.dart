@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app/store/hive_boxes.dart';
+import 'package:flutter_application_1/app/store/models/user_model.dart';
 import 'package:flutter_application_1/app/store/providers/settings_provider.dart';
+import 'package:flutter_application_1/app/store/providers/user_provider.dart';
+import 'package:flutter_application_1/app/store/services/user_service.dart';
 import 'package:flutter_application_1/app/widgets/DataApp/profileCircularImage.dart';
 import 'package:flutter_application_1/app/widgets/DataApp/profileHeader.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,9 +23,19 @@ class _ProfileState extends ConsumerState<Profile> {
     super.initState();
   }
 
+  void signOut() {
+    try {
+      ref.read(userStateProvider.notifier).signOut();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = ref.watch(settingStateProvider);
+    final userDetails = ref.watch(userStateProvider);
+    print('${userDetails.name}, ${userDetails.email}, ${userDetails.id}');
     return (Scaffold(
       body: SafeArea(
           top: false,
@@ -31,21 +44,21 @@ class _ProfileState extends ConsumerState<Profile> {
               Column(
                 children: [
                   const ProfileHeader(),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 105.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 105.0),
                     child: Text(
-                      'Alexa Wilson',
-                      style: TextStyle(
+                      userDetails.name ?? '',
+                      style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w600,
                           color: Color.fromRGBO(110, 104, 59, 1)),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 1.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 1.0),
                     child: Text(
-                      'alexa@example.com',
-                      style: TextStyle(
+                      userDetails.email ?? '',
+                      style: const TextStyle(
                         fontSize: 15.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -89,9 +102,7 @@ class _ProfileState extends ConsumerState<Profile> {
                               fontWeight: FontWeight.w500, fontSize: 16.0),
                         ),
                         IconButton(
-                            onPressed: () {
-                              FirebaseAuth.instance.signOut();
-                            },
+                            onPressed: signOut,
                             icon: const Icon(
                               Icons.logout,
                             ))

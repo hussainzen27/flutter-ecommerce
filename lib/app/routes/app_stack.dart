@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/app/views/addproduct.dart';
+import 'package:flutter_application_1/app/views/chat.dart';
 import 'package:flutter_application_1/app/views/home.dart';
 import 'package:flutter_application_1/app/views/profile.dart';
 
@@ -90,6 +91,9 @@ class _AppStackState extends State<AppStack> {
                 const AddProduct(),
                 const Profile(),
               ][currentPageIndex]));
+          break;
+        case '/chat':
+          builder = (context) => const Chat();
           break;
         default:
           builder = (context) => const Home();

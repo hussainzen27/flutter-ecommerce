@@ -1,15 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/store/providers/user_provider.dart';
+import 'package:flutter_application_1/app/store/services/user_service.dart';
 import 'package:flutter_application_1/app/widgets/Calculator/customInput.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Signup extends StatefulWidget {
+class Signup extends ConsumerStatefulWidget {
   const Signup({super.key});
 
   @override
-  State<Signup> createState() => _SignupState();
+  ConsumerState<Signup> createState() => _SignupState();
 }
 
-class _SignupState extends State<Signup> {
+class _SignupState extends ConsumerState<Signup> {
   String name = '';
   String email = '';
   String password = '';
@@ -29,16 +32,10 @@ class _SignupState extends State<Signup> {
     confirmPassController.text = confirmPassword.toString();
   }
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future<void> signUp() async {
+  void signUp() {
     try {
-      print(passwordController.text);
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text)
-          .then((value) => print("User created"))
-          .catchError((e) => print(e));
+      ref.read(userStateProvider.notifier).signUp(
+          emailController.text, passwordController.text, nameController.text);
     } catch (e) {
       print(e);
     }

@@ -13,7 +13,6 @@ class ProductNotifier extends StateNotifier<List<ProductModel>> {
 
   void add(String title, String price, String quantity, String category,
       String location, String path) async {
-    print('addd $path');
     await service.addProduct(ProductModel(
       title: title,
       price: price,

@@ -5,15 +5,15 @@ part 'user_model.g.dart';
 @HiveType(typeId: 2)
 class UserModel extends HiveObject {
   @HiveField(0)
-  String name;
+  String id;
   @HiveField(1)
-  String email;
+  String name;
   @HiveField(2)
-  String image;
+  String email;
 
   UserModel({
+    required this.id,
     required this.name,
     required this.email,
-    required this.image,
   });
 }

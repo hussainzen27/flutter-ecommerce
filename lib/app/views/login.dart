@@ -1,16 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/app/store/providers/user_provider.dart';
+import 'package:flutter_application_1/app/store/services/user_service.dart';
 import 'package:flutter_application_1/app/views/signup.dart';
 import 'package:flutter_application_1/app/widgets/Calculator/customInput.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Login extends StatefulWidget {
+class Login extends ConsumerStatefulWidget {
   const Login({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  ConsumerState<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends ConsumerState<Login> {
   String email = '';
   String password = '';
 
@@ -25,15 +28,12 @@ class _LoginState extends State<Login> {
     passwordController.text = password.toString();
   }
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future<void> login() async {
+  void login() {
     try {
-      await _auth
-          .signInWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text)
-          .then((value) => print("User signed in"))
-          .catchError((e) => print(e));
+      ref.read(userStateProvider.notifier).signIn(
+            emailController.text,
+            passwordController.text,
+          );
     } catch (e) {
       print(e);
     }
